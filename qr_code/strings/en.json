@@ -1,0 +1,10 @@
+{
+  "qr_code": "QR Code",
+  "text": "Text",
+  "link": "Link",
+  "wifi": "Wi-Fi",
+  "vcard": "vCard",
+  "set_content": "Set QR code content in cell options.",
+  "scan_hint": "Scan with your phone",
+  "hidden_network": "Hidden network"
+}

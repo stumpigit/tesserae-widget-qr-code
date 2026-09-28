@@ -1,0 +1,180 @@
+{
+  "tesserae_compat": "1.x",
+  "name": "QR Code",
+  "version": "0.1.0",
+  "kind": "widget",
+  "locales": [
+    "en",
+    "de"
+  ],
+  "description": "Theme-aware QR codes for text, links, Wi-Fi credentials, and vCards. Generated server-side, no network.",
+  "icon": "ph-qr-code",
+  "supports": {
+    "sizes": [
+      "xs",
+      "sm",
+      "md",
+      "lg"
+    ]
+  },
+  "cell_options": [
+    {
+      "name": "kind",
+      "type": "select",
+      "label": "QR code type",
+      "default": "link",
+      "choices": [
+        {
+          "value": "text",
+          "label": "Text"
+        },
+        {
+          "value": "link",
+          "label": "Link"
+        },
+        {
+          "value": "wifi",
+          "label": "Wi-Fi"
+        },
+        {
+          "value": "vcard",
+          "label": "vCard"
+        }
+      ]
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "label": "Title (optional)",
+      "default": ""
+    },
+    {
+      "name": "show_details",
+      "type": "boolean",
+      "label": "Show title and details",
+      "default": false
+    },
+    {
+      "name": "text",
+      "type": "textarea",
+      "label": "Text",
+      "default": "Hello Tesserae"
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "label": "Link URL",
+      "default": "https://docs.tesserae.ink"
+    },
+    {
+      "name": "wifi_ssid",
+      "type": "string",
+      "label": "Wi-Fi SSID",
+      "default": ""
+    },
+    {
+      "name": "wifi_password",
+      "type": "string",
+      "label": "Wi-Fi password",
+      "default": "",
+      "mask": true
+    },
+    {
+      "name": "wifi_security",
+      "type": "select",
+      "label": "Wi-Fi security",
+      "default": "WPA",
+      "choices": [
+        {
+          "value": "WPA",
+          "label": "WPA/WPA2/WPA3"
+        },
+        {
+          "value": "WEP",
+          "label": "WEP"
+        },
+        {
+          "value": "nopass",
+          "label": "No password"
+        }
+      ]
+    },
+    {
+      "name": "wifi_hidden",
+      "type": "boolean",
+      "label": "Hidden network",
+      "default": false
+    },
+    {
+      "name": "vcard_name",
+      "type": "string",
+      "label": "vCard name",
+      "default": ""
+    },
+    {
+      "name": "vcard_org",
+      "type": "string",
+      "label": "vCard organisation",
+      "default": ""
+    },
+    {
+      "name": "vcard_phone",
+      "type": "string",
+      "label": "vCard phone",
+      "default": ""
+    },
+    {
+      "name": "vcard_email",
+      "type": "string",
+      "label": "vCard email",
+      "default": ""
+    },
+    {
+      "name": "vcard_url",
+      "type": "string",
+      "label": "vCard URL",
+      "default": ""
+    },
+    {
+      "name": "tone",
+      "type": "select",
+      "label": "QR colour",
+      "default": "text",
+      "choices": [
+        {
+          "value": "text",
+          "label": "Theme text"
+        },
+        {
+          "value": "accent_1",
+          "label": "Accent 1"
+        },
+        {
+          "value": "accent_2",
+          "label": "Accent 2"
+        },
+        {
+          "value": "accent_3",
+          "label": "Accent 3"
+        },
+        {
+          "value": "accent_4",
+          "label": "Accent 4"
+        },
+        {
+          "value": "accent_5",
+          "label": "Accent 5"
+        },
+        {
+          "value": "accent_6",
+          "label": "Accent 6"
+        }
+      ]
+    }
+  ],
+  "render": {
+    "dither": "none",
+    "needs_network": false
+  },
+  "requires": []
+}
