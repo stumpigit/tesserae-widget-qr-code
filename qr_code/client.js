@@ -82,7 +82,7 @@ export default function render(shadow, ctx) {
     return;
   }
 
-  const summary = data.summary || data.payload || "";
+  const summary = data.summary || "";
   const payloadPreview = kind === "wifi" ? summary.replace(" (hidden)", ` - ${t("hidden_network", "Hidden network")}`) : summary;
   const layout = `
     .w[data-widget="qr_code"] .w-body {

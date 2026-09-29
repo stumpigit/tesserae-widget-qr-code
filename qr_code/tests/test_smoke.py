@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import importlib.util
 import json
 from pathlib import Path
 from urllib.parse import quote
@@ -10,6 +11,14 @@ import pytest
 from flask.testing import FlaskClient
 
 PLUGIN_ROOT = Path(__file__).resolve().parents[1]
+
+
+def _server_module():
+    spec = importlib.util.spec_from_file_location("qr_code_server", PLUGIN_ROOT / "server.py")
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 
 def test_qr_code_hides_details_by_default() -> None:
@@ -29,6 +38,52 @@ def test_qr_code_details_do_not_show_technical_module_count() -> None:
     assert "moduleLabel" not in client_js
     assert "modules" not in client_js
     assert all("modules" not in values for values in strings.values())
+
+
+def test_wifi_password_is_secret_in_manifest() -> None:
+    manifest = json.loads((PLUGIN_ROOT / "plugin.json").read_text())
+    wifi_password = next(
+        option for option in manifest["cell_options"] if option["name"] == "wifi_password"
+    )
+
+    assert wifi_password["secret"] is True
+
+
+def test_fetch_does_not_return_raw_wifi_payload() -> None:
+    server = _server_module()
+
+    result = server.fetch(
+        {
+            "kind": "wifi",
+            "wifi_ssid": "StudioNet",
+            "wifi_password": "paper42",
+            "wifi_security": "WPA",
+        },
+        {},
+        None,
+    )
+
+    assert result["summary"] == "StudioNet"
+    assert "payload" not in result
+    assert "paper42" not in json.dumps(result)
+
+
+def test_wifi_payload_escapes_double_quotes() -> None:
+    server = _server_module()
+
+    kind, payload, summary = server._build_payload(
+        {
+            "kind": "wifi",
+            "wifi_ssid": 'Studio"Net',
+            "wifi_password": 'paper"42',
+            "wifi_security": "WPA",
+        }
+    )
+
+    assert kind == "wifi"
+    assert summary == 'Studio"Net'
+    assert 'S:Studio\\"Net' in payload
+    assert 'P:paper\\"42' in payload
 
 
 @pytest.mark.parametrize(

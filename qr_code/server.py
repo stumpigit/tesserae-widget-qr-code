@@ -15,7 +15,7 @@ def _clean(value: Any) -> str:
 
 
 def _wifi_escape(value: str) -> str:
-    return "".join(f"\\{ch}" if ch in {'\\', ';', ',', ':'} else ch for ch in value)
+    return "".join(f"\\{ch}" if ch in {'\\', ';', ',', ':', '"'} else ch for ch in value)
 
 
 def _vcard_escape(value: str) -> str:
@@ -114,7 +114,6 @@ def fetch(options: dict[str, Any], settings: dict[str, Any], ctx: dict[str, Any]
         "kind": kind,
         "title": title,
         "summary": summary,
-        "payload": payload,
         "matrix": matrix,
         "size": len(matrix),
         "quiet": 4,
